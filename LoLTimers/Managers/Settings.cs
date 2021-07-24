@@ -34,8 +34,8 @@ namespace LoLTimers.Managers
             SpellList[(int)Spells.Barrier] = new Spell
             {
                 Name = nameof(Spells.Barrier),
-                Cooldown = 10,
-                AlertThreshold = 5,
+                Cooldown = 180,
+                AlertThreshold = m_DefaultAlertThreshold,
                 Image = new BitmapImage(GetImageUri($"/Images/{nameof(Spells.Barrier)}.png"))
             };
             SpellList[(int)Spells.Clarity] = new Spell
