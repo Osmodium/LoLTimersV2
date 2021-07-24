@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="LoLTimers.TimerUserControl"
+﻿<UserControl x:Class="LoLTimers.UserControls.TimerUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LoLTimers"
+             xmlns:userControls="clr-namespace:LoLTimers.UserControls"
              mc:Ignorable="d" Loaded="OnLoaded">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,13 +17,13 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" x:Name="imgLeftSummoner" Source="/Images/Flash.png" MouseLeftButtonUp="ImgLeftSummoner_OnMouseUp" Cursor="Hand"/>
-            <local:OutlinedTextBlock Grid.Column="0" x:Name="txtLeftSummonerTimer" Text="XXX.XX" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="40 px" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="8" Stroke="Black" Fill="White" Cursor="Hand" MouseLeftButtonUp="ImgLeftSummoner_OnMouseUp"/>
+            <Image Grid.Column="0" x:Name="imgLeftSummoner" MouseLeftButtonUp="ImgLeftSummoner_OnMouseUp" Cursor="Hand"/>
+            <userControls:OutlinedTextBlock Grid.Column="0" x:Name="txtLeftSummonerTimer" Text="-" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="40 px" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="8" Stroke="Black" Fill="White" Cursor="Hand" MouseLeftButtonUp="ImgLeftSummoner_OnMouseUp"/>
 
             <Border Grid.Column="0" BorderThickness="2" BorderBrush="Black"/>
 
-            <Image Grid.Column="1" x:Name="imgRightSummoner" Source="/Images/Ignite.png" MouseLeftButtonUp="ImgRightSummoner_OnMouseUp" Cursor="Hand"/>
-            <local:OutlinedTextBlock Grid.Column="1" x:Name="txtRightSummonerTimer" Text="XXX.XX" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="40 px" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="8" Stroke="Black" Fill="White" Cursor="Hand" MouseLeftButtonUp="ImgRightSummoner_OnMouseUp"/>
+            <Image Grid.Column="1" x:Name="imgRightSummoner" MouseLeftButtonUp="ImgRightSummoner_OnMouseUp" Cursor="Hand"/>
+            <userControls:OutlinedTextBlock Grid.Column="1" x:Name="txtRightSummonerTimer" Text="-" FontWeight="Bold" FontFamily="Bahnschrift" FontSize="40 px" VerticalAlignment="Center" HorizontalAlignment="Center" StrokeThickness="8" Stroke="Black" Fill="White" Cursor="Hand" MouseLeftButtonUp="ImgRightSummoner_OnMouseUp"/>
 
             <Border Grid.Column="1" BorderThickness="2" BorderBrush="Black"/>
         </Grid>

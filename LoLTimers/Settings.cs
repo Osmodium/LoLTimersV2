@@ -12,9 +12,7 @@ namespace LoLTimers
         // Lazy singleton
         private static readonly Lazy<Settings> lazy = new(() => new Settings());
         public static Settings Instance => lazy.Value;
-
-        public ContextMenu SpellChangeContextMenu;
-
+        
         public Spell[] Spells;
 
         private Settings()
@@ -22,33 +20,16 @@ namespace LoLTimers
             // Todo: change to read from a settings file
 
             InitializeSpells();
-
-            InitializeContextMenu();
-        }
-
-        private void InitializeContextMenu()
-        {
-            SpellChangeContextMenu = new ContextMenu();
-            foreach (Spell spell in Spells)
-            {
-                MenuItem spellMenuItem = new()
-                {
-                    Header = spell.Name,
-                    Icon = new Image { Source = spell.Image }
-                };
-                SpellChangeContextMenu.Items.Add(spellMenuItem);
-            }
-
         }
 
         private void InitializeSpells()
         {
-            Spells = new Spell[9];
+            Spells = new Spell[10];
             Spells[0] = new Spell
             {
-                Name = "Barrier",
-                Cooldown = 100,
-                Image = new BitmapImage(GetImageUri("/Images/Barrier.png"))
+                Name = "None",
+                Cooldown = 0,
+                Image = new BitmapImage(GetImageUri("/Images/None64.png"))
             };
             Spells[1] = new Spell
             {
@@ -65,7 +46,7 @@ namespace LoLTimers
             Spells[3] = new Spell
             {
                 Name = "Flash",
-                Cooldown = 260,
+                Cooldown = 300,
                 Image = new BitmapImage(GetImageUri("/Images/Flash.png"))
             };
             Spells[4] = new Spell
@@ -77,7 +58,7 @@ namespace LoLTimers
             Spells[5] = new Spell
             {
                 Name = "Heal",
-                Cooldown = 180,
+                Cooldown = 240,
                 Image = new BitmapImage(GetImageUri("/Images/Heal.png"))
             };
             Spells[6] = new Spell
@@ -96,7 +77,13 @@ namespace LoLTimers
             {
                 Name = "Teleport",
                 Cooldown = 215,
-                Image = new BitmapImage(new Uri("/Images/Teleport.png", UriKind.Relative))
+                Image = new BitmapImage(GetImageUri("/Images/Teleport.png"))
+            };
+            Spells[9] = new Spell
+            {
+                Name = "Barrier",
+                Cooldown = 180,
+                Image = new BitmapImage(GetImageUri("/Images/Barrier.png"))
             };
         }
 

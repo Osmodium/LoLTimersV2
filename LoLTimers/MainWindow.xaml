@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LoLTimers"
+        xmlns:userControls="clr-namespace:LoLTimers.UserControls"
         mc:Ignorable="d"
         Height="1038" Width="336" WindowStyle="ToolWindow" Background="Black" Margin="0" Padding="0">
     <Grid Margin="0" Background="Black">
-        <local:TimerUserControl x:Name="timerControl0" Id="0" VerticalAlignment="Top" Height="200" Padding="0" />
-        <local:TimerUserControl x:Name="timerControl1" Id="1" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,200,0,0" />
-        <local:TimerUserControl x:Name="timerControl2" Id="2" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,400,0,0" />
-        <local:TimerUserControl x:Name="timerControl3" Id="3" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,600,0,0" />
-        <local:TimerUserControl x:Name="timerControl4" Id="4" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,800,0,0" />
+        <userControls:TimerUserControl x:Name="timerControl0" Id="0" VerticalAlignment="Top" Height="200" Padding="0" />
+        <userControls:TimerUserControl x:Name="timerControl1" Id="1" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,200,0,0" />
+        <userControls:TimerUserControl x:Name="timerControl2" Id="2" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,400,0,0" />
+        <userControls:TimerUserControl x:Name="timerControl3" Id="3" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,600,0,0" />
+        <userControls:TimerUserControl x:Name="timerControl4" Id="4" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,800,0,0" />
     </Grid>
 </Window>
