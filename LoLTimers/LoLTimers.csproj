@@ -55,6 +55,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Remove="Images\Mark.png" />
+    <PackageReference Include="System.Speech" Version="5.0.0" />
     <Resource Include="Images\Mark.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

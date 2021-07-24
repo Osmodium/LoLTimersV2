@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using LoLTimers.DataTypes;
 
-namespace LoLTimers
+namespace LoLTimers.Managers
 {
     public sealed class SpellManager
     {
@@ -12,10 +12,10 @@ namespace LoLTimers
         public static SpellManager Instance => lazy.Value;
 
         public event EventHandler<SpellChangedEventArgs> SpellChanged;
-        
+
         public ContextMenu SpellsContextMenu;
 
-        private object m_Sender = null;
+        private object m_Sender;
 
         private SpellManager()
         {
@@ -25,12 +25,12 @@ namespace LoLTimers
         private void InitializeContextMenu()
         {
             SpellsContextMenu = new ContextMenu();
-            foreach (Spell spell in Settings.Instance.Spells)
+            foreach (Spell spell in Settings.Instance.SpellList)
             {
                 MenuItem spellMenuItem = new()
                 {
                     Header = spell.Name,
-                    Icon = new Image {Source = spell.Image},
+                    Icon = new Image { Source = spell.Image },
                     Tag = spell
                 };
                 spellMenuItem.Click += SpellMenuItemOnClick;
@@ -43,7 +43,7 @@ namespace LoLTimers
 
         private void SpellsContextMenuOnOpened(object sender, RoutedEventArgs e)
         {
-            m_Sender = ((ContextMenu) sender)?.PlacementTarget;
+            m_Sender = ((ContextMenu)sender)?.PlacementTarget;
             e.Handled = true;
         }
 
