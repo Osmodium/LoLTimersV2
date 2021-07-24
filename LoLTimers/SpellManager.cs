@@ -44,6 +44,7 @@ namespace LoLTimers
         private void SpellsContextMenuOnOpened(object sender, RoutedEventArgs e)
         {
             m_Sender = ((ContextMenu) sender)?.PlacementTarget;
+            e.Handled = true;
         }
 
         private void SpellMenuItemOnClick(object sender, RoutedEventArgs e)
@@ -52,6 +53,7 @@ namespace LoLTimers
             Spell spell = menuItem.Tag as Spell;
 
             SpellChanged?.Invoke(this, new SpellChangedEventArgs(m_Sender, spell));
+            e.Handled = true;
         }
     }
 }

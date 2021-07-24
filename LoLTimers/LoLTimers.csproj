@@ -50,6 +50,14 @@
     <Resource Include="Images\None64.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <None Remove="Images\Clarity.png" />
+    <Resource Include="Images\Clarity.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <None Remove="Images\Mark.png" />
+    <Resource Include="Images\Mark.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

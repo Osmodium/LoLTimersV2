@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LoLTimers"
         xmlns:userControls="clr-namespace:LoLTimers.UserControls"
         mc:Ignorable="d"
-        Height="1038" Width="336" WindowStyle="ToolWindow" Background="Black" Margin="0" Padding="0">
+        Height="1038" Width="336" WindowStyle="None" Background="Black" Margin="0" Padding="0" ResizeMode="NoResize" Topmost="True" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
     <Grid Margin="0" Background="Black">
         <userControls:TimerUserControl x:Name="timerControl0" Id="0" VerticalAlignment="Top" Height="200" Padding="0" />
         <userControls:TimerUserControl x:Name="timerControl1" Id="1" VerticalAlignment="Top" Height="200" Padding="0" Margin="0,200,0,0" />

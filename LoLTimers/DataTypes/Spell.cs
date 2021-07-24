@@ -6,6 +6,7 @@ namespace LoLTimers.DataTypes
     {
         public string Name { get; set; }
         public float Cooldown { get; set; }
+        public float AlertThreshold { get; set; }
         public BitmapImage Image { get; set; }
     }
 }
