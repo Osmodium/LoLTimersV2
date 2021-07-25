@@ -9,6 +9,7 @@
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <DebugType>embedded</DebugType>
+    <ApplicationIcon>loltimer.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
