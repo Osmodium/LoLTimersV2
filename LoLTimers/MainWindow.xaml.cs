@@ -36,7 +36,7 @@ namespace LoLTimers
             SupportTimerControl.SetRightSpell(Settings.Instance.SpellList[(int)Spells.Exhaust]);
 
             m_UpdateFrequency = new DispatcherTimer();
-            m_UpdateFrequency.Interval = TimeSpan.FromMilliseconds(50);
+            m_UpdateFrequency.Interval = TimeSpan.FromMilliseconds(100);
             m_UpdateFrequency.Tick += UpdateFrequencyOnTick;
             m_UpdateFrequency.Start();
         }

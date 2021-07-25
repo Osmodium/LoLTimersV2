@@ -28,21 +28,24 @@ namespace LoLTimers.UserControls
         private bool m_LeftAlert;
         private bool m_RightAlert;
 
-        private string m_DecimalFormat = "N1";
+        private string m_DecimalFormat = "N0";
 
         private DoubleAnimation m_PulseAnimation = new(1, 1.8, new Duration(TimeSpan.FromMilliseconds(500)));
+        private DoubleAnimation m_SlightPulseAnimation = new(1, 1.01, new Duration(TimeSpan.FromSeconds(2)));
 
         private SpeechSynthesizer m_SpeechSynthesizer = new();
 
         public TimerUserControl()
         {
             InitializeComponent();
-            SetLeftSpell(Settings.Instance.SpellList[5]);
+            SetLeftSpell(Settings.Instance.SpellList[0]);
             SetRightSpell(Settings.Instance.SpellList[0]);
             SpellManager.Instance.SpellChanged += InstanceOnSpellChanged;
 
             m_PulseAnimation.AutoReverse = true;
             m_PulseAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            m_SlightPulseAnimation.AutoReverse = true;
+            m_SlightPulseAnimation.RepeatBehavior = RepeatBehavior.Forever;
 
             // TODO make these adjustable settings
             //var voices = m_SpeechSynthesizer.GetInstalledVoices();
@@ -56,34 +59,36 @@ namespace LoLTimers.UserControls
         {
             if (!m_IsLeftRunning && !m_IsRightRunning)
                 return;
-            
+
             if (m_IsLeftRunning)
             {
-                var t = m_LeftTimer - DateTime.Now;
-                if (t <= TimeSpan.FromSeconds(m_LeftSpell.AlertThreshold) && !m_LeftAlert)
-                    Alert(SpellSlot.Left);
-
-                if (t <= TimeSpan.Zero)
-                {
-                    t = TimeSpan.FromSeconds(m_LeftSpell.Cooldown);
-                    Reset(SpellSlot.Left);
-                }
-                txtLeftSummonerTimer.Text = t.TotalSeconds.ToString(m_DecimalFormat);
+                UpdateSpellTimer(SpellSlot.Left, m_LeftTimer, m_LeftSpell, m_LeftAlert, txtLeftSummonerTimer);
             }
 
             if (m_IsRightRunning)
             {
-                var t = m_RightTimer - DateTime.Now;
-                if (t <= TimeSpan.FromSeconds(m_RightSpell.AlertThreshold) && !m_RightAlert)
-                    Alert(SpellSlot.Right);
-
-                if (t <= TimeSpan.Zero)
-                {
-                    t = TimeSpan.FromSeconds(m_RightSpell.Cooldown);
-                    Reset(SpellSlot.Right);
-                }
-                txtRightSummonerTimer.Text = t.TotalSeconds.ToString(m_DecimalFormat);
+                UpdateSpellTimer(SpellSlot.Right, m_RightTimer, m_RightSpell, m_RightAlert, txtRightSummonerTimer);
             }
+        }
+
+        private void UpdateSpellTimer(SpellSlot slot, DateTime timer, Spell spell, bool alert, OutlinedTextBlock textBlock)
+        {
+            var t = timer - DateTime.Now;
+            var at = TimeSpan.FromSeconds(spell.AlertThreshold);
+            var cd = TimeSpan.FromSeconds(spell.Cooldown);
+            if (t <= at && !alert)
+                Alert(slot);
+
+            if (t <= TimeSpan.Zero)
+            {
+                t = cd;
+                Reset(slot);
+            }
+            textBlock.Text = t.TotalSeconds.ToString(m_DecimalFormat);
+            var rt = (t - at) / (cd - at);
+            var red = Color.Multiply(Colors.Red, 1 - (float)rt);
+            var white = Color.Multiply(Colors.White, (float)rt);
+            textBlock.Fill = new SolidColorBrush(Color.Add(white, red));
         }
 
         private void Alert(SpellSlot slot)
@@ -92,14 +97,14 @@ namespace LoLTimers.UserControls
             {
                 case SpellSlot.Left:
                     m_LeftAlert = true;
-                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_LeftSpell.Name} ready in {m_LeftSpell.AlertThreshold} seconds");
+                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_LeftSpell.Name} in {m_LeftSpell.AlertThreshold}");
                     txtLeftSummonerTimer.Fill = new SolidColorBrush(Colors.Red);
                     rectScaleLeft.BeginAnimation(ScaleTransform.ScaleXProperty, m_PulseAnimation);
                     rectScaleLeft.BeginAnimation(ScaleTransform.ScaleYProperty, m_PulseAnimation);
                     break;
                 case SpellSlot.Right:
                     m_RightAlert = true;
-                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_RightSpell.Name} ready in {m_RightSpell.AlertThreshold} seconds");
+                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_RightSpell.Name} in {m_RightSpell.AlertThreshold}");
                     txtRightSummonerTimer.Fill = new SolidColorBrush(Colors.Red);
                     rectScaleRight.BeginAnimation(ScaleTransform.ScaleXProperty, m_PulseAnimation);
                     rectScaleRight.BeginAnimation(ScaleTransform.ScaleYProperty, m_PulseAnimation);
@@ -116,7 +121,7 @@ namespace LoLTimers.UserControls
                 case SpellSlot.Left:
                     m_IsLeftRunning = false;
                     m_LeftAlert = false;
-                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_LeftSpell.Name} ready");
+                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_LeftSpell.Name} ready!");
                     imgLeftSummoner.Source = m_LeftSpell.Image;
                     txtLeftSummonerTimer.Fill = new SolidColorBrush(Colors.White);
                     rectScaleLeft.BeginAnimation(ScaleTransform.ScaleXProperty, null);
@@ -127,7 +132,7 @@ namespace LoLTimers.UserControls
                 case SpellSlot.Right:
                     m_RightAlert = false;
                     m_IsRightRunning = false;
-                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_RightSpell.Name} ready");
+                    m_SpeechSynthesizer.SpeakAsync($"{lblTimerName.Content} {m_RightSpell.Name} ready!");
                     imgRightSummoner.Source = m_RightSpell.Image;
                     txtRightSummonerTimer.Fill = new SolidColorBrush(Colors.White);
                     rectScaleRight.BeginAnimation(ScaleTransform.ScaleXProperty, null);
@@ -188,11 +193,15 @@ namespace LoLTimers.UserControls
                 case SpellSlot.Left:
                     m_LeftTimer = DateTime.Now.AddSeconds(m_LeftSpell.Cooldown);
                     imgLeftSummoner.Source = ImageUtilities.ConvertImageToGrayScaleImage(m_LeftSpell.Image);
+                    rectScaleLeft.BeginAnimation(ScaleTransform.ScaleXProperty, m_SlightPulseAnimation);
+                    rectScaleLeft.BeginAnimation(ScaleTransform.ScaleYProperty, m_SlightPulseAnimation);
                     m_IsLeftRunning = true;
                     break;
                 case SpellSlot.Right:
                     m_RightTimer = DateTime.Now.AddSeconds(m_RightSpell.Cooldown);
                     imgRightSummoner.Source = ImageUtilities.ConvertImageToGrayScaleImage(m_RightSpell.Image);
+                    rectScaleRight.BeginAnimation(ScaleTransform.ScaleXProperty, m_SlightPulseAnimation);
+                    rectScaleRight.BeginAnimation(ScaleTransform.ScaleYProperty, m_SlightPulseAnimation);
                     m_IsRightRunning = true;
                     break;
                 default:
