@@ -226,8 +226,7 @@ namespace LoLTimers.UserControls
             return finalSize;
         }
 
-        private static void OnFormattedTextInvalidated(DependencyObject dependencyObject,
-          DependencyPropertyChangedEventArgs e)
+        private static void OnFormattedTextInvalidated(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             var outlinedTextBlock = (OutlinedTextBlock)dependencyObject;
             outlinedTextBlock._FormattedText = null;
@@ -254,13 +253,22 @@ namespace LoLTimers.UserControls
                 return;
             }
 
+            //_FormattedText = new FormattedText(
+            //  Text ?? "",
+            //  CultureInfo.CurrentUICulture,
+            //  FlowDirection,
+            //  new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
+            //  FontSize,
+            //  Brushes.Black);
+            
             _FormattedText = new FormattedText(
-              Text ?? "",
-              CultureInfo.CurrentUICulture,
-              FlowDirection,
-              new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
-              FontSize,
-              Brushes.Black);
+                Text ?? "",
+                CultureInfo.CurrentCulture,
+                FlowDirection,
+                new Typeface(FontFamily, FontStyle, FontWeight, FontStretch),
+                FontSize,
+                Brushes.Black,
+                VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
             UpdateFormattedText();
         }
