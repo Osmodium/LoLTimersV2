@@ -7,19 +7,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
+    <Page Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\Barrier.png" />
+    <None Remove="Images\Clarity.png" />
     <None Remove="Images\Cleanse.png" />
     <None Remove="Images\Exhaust.png" />
     <None Remove="Images\Flash.png" />
     <None Remove="Images\Ghost.png" />
     <None Remove="Images\Heal.png" />
     <None Remove="Images\Ignite.png" />
+    <None Remove="Images\Mark.png" />
+    <None Remove="Images\None.png" />
+    <None Remove="Images\None64.png" />
     <None Remove="Images\Smite.png" />
     <None Remove="Images\Teleport.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Speech" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\Barrier.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Clarity.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Cleanse.png">
@@ -40,37 +62,21 @@
     <Resource Include="Images\Ignite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Mark.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\None.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\None64.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Smite.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Teleport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <None Remove="Images\None64.png" />
-    <Resource Include="Images\None64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <None Remove="Images\Clarity.png" />
-    <Resource Include="Images\Clarity.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <None Remove="Images\Mark.png" />
-    <PackageReference Include="System.Speech" Version="5.0.0" />
-    <Resource Include="Images\Mark.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="UserControls\TimerUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="UserControls\TimerUserControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>
